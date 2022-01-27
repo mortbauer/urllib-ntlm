@@ -1,74 +1,23 @@
-# python-ntlm
+# urllib-ntlm (also under python-ntlm on github)
 Python library that provides NTLM support, including an authentication handler for urllib2.
 
 This library allows you to retrieve content from (usually corporate) servers protected with windows authentication (NTLM) using the python urllib2.
 
 ## Python 3 Support
-There is work going on to port the library to python 3, you can find it in the python30 directory. (at this time it seems to work as good as the python 2 library)
+
+Only python3 is supported.
 
 # Usage
 
-## Simple example
-```python
-import urllib2
-from ntlm import HTTPNtlmAuthHandler
-
-user = 'DOMAIN\User'
-password = "Password"
-url = "http://ntlmprotectedserver/securedfile.html"
-
-passman = urllib2.HTTPPasswordMgrWithDefaultRealm()
-passman.add_password(None, url, user, password)
-# create the NTLM authentication handler
-auth_NTLM = HTTPNtlmAuthHandler.HTTPNtlmAuthHandler(passman)
-
-# create and install the opener
-opener = urllib2.build_opener(auth_NTLM)
-urllib2.install_opener(opener)
-
-# retrieve the result
-response = urllib2.urlopen(url)
-print(response.read())
-```
-
-## Extended Example
-```python
-import urllib2
-from urlparse import urlparse, urlunparse
-from ntlm import HTTPNtlmAuthHandler
-
-user = 'DOMAIN\User'
-password = "Password"
-url = "http://ntlmprotectedserver/securedfile.html"
-# determine a base_uri for which the username and password can be used
-parsed_url = urlparse(self.href)
-base_uri = urlunparse((parsed_url[0],parsed_url[1],"","","",""))
-
-passman = urllib2.HTTPPasswordMgrWithDefaultRealm()
-passman.add_password(None, base_uri, user, password)
-# create the NTLM authentication handler
-auth_NTLM = HTTPNtlmAuthHandler.HTTPNtlmAuthHandler(passman)
-
-# other authentication handlers
-auth_basic = urllib2.HTTPBasicAuthHandler(passman)
-auth_digest = urllib2.HTTPDigestAuthHandler(passman)
-
-# disable proxies (if you want to stay within the corporate network)
-proxy_handler = urllib2.ProxyHandler({})
-
-# create and install the opener
-opener = urllib2.build_opener(proxy_handler, auth_NTLM, auth_digest, auth_basic)
-urllib2.install_opener(opener)
-
-# retrieve the result    
-response = urllib2.urlopen(url)
-print(response.read())
-```
+please see the examples directory.
 
 ## Limitations
   * A request using the `HTTPNtlmAuthHandler` has no HTTP status handling, for example: redirects are not handled by the opener, you must check and handle the response yourself.
 
 # Resources
+
+## Original Fork
+*  https://github.com/mullender/python-ntlm
 
 ## Inspired by
   * [http://sourceforge.net/projects/ntlmaps/ NTLM Authorization Proxy Server]
