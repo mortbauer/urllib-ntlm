@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "urllib-ntlm"
-version = "0.1.0"
+version = "0.1.1"
 description = "NTLM Authenticator for urllib.request"
 authors = ["Martin Ortbauer <mortbauer@gmail.com>"]
 homepage = "https://github.com/mortbauer/urllib-ntlm"
@@ -10,7 +10,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7"
 
 [tool.poetry.dev-dependencies]
 
